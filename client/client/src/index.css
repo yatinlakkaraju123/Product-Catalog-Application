@@ -1,0 +1,60 @@
+body {
+  font-family: "Poppins", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 100vh;
+  max-height: max-content;
+  background-color: hsl(150, 20%, 98%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+p,
+label {
+  font-family: "Poppins", sans-serif !important;
+  color: #2E3133;
+}
+
+.MuiTypography-root, .MuiButton-root {
+  font-family: "Poppins", sans-serif !important;
+}
+
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e7e7ef;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  height: 42px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.38);
+}
+
+.virtual-scroller::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+
+iframe#webpack-dev-server-client-overlay {
+  display: none;
+}
