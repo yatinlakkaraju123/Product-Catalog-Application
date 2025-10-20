@@ -104,7 +104,9 @@ cd Product-Catalog-Application/server
 ```
 
 2. **Configure env variables**
-```create a file called .env and add the following to that file
+   *Create a file called .env in the server folder and add the following to that file*
+```
+
 DB_URL=(database URL)
 DB_USERNAME=(database username)
 DB_PASSWORD=(database password)
@@ -271,5 +273,5 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 
 ⭐ If you find this project helpful, please consider giving it a star!
-```
+
 
