@@ -99,25 +99,21 @@ Admins can perform CRUD operations on products and categories, while customers c
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yatinlakkaraju123/product-catalog-springboot-react.git
-cd product-catalog-springboot-react/backend
+git clone https://github.com/yatinlakkaraju123/Product-Catalog-Application.git
+cd Product-Catalog-Application/server
 ```
 
-2. **Configure application.properties**
-```properties
-# Database Configuration
-spring.datasource.url=jdbc:postgresql://localhost:5432/your_database_name
-spring.datasource.username=your_username
-spring.datasource.password=your_password
+2. **Configure env variables**
+```create a file called .env and add the following to that file
+DB_URL=(database URL)
+DB_USERNAME=(database username)
+DB_PASSWORD=(database password)
+JWT_SECRET=(jwt secret)
+S3_BUCKETNAME=(aws s3 bucket name)
+S3_ACCESSKEY=(aws s3 access key)
+S3_SECRETKEY=(aws s3 secret key)
+S3_REGION=(aws s3 region )
 
-# AWS S3 Configuration
-aws.s3.bucket-name=your-bucket-name
-cloud.aws.credentials.access-key=your-access-key
-cloud.aws.credentials.secret-key=your-secret-key
-cloud.aws.region.static=your-region
-
-# JWT Secret
-secret=your-jwt-secret-key
 ```
 
 3. **Run the application**
@@ -132,7 +128,7 @@ Backend will start on `http://localhost:9007`
 
 1. **Navigate to frontend directory**
 ```bash
-cd ../frontend
+cd ../client/client
 ```
 
 2. **Install dependencies**
@@ -149,7 +145,7 @@ const API_BASE_URL = "http://localhost:9007";
 
 4. **Start the development server**
 ```bash
-npm start
+npm run dev
 ```
 
 Frontend will start on `http://localhost:5173`
@@ -250,16 +246,7 @@ This project demonstrates:
 - ✅ Axios interceptors for token refresh
 - ✅ Server-side pagination and sorting
 
-## 🚧 Future Enhancements
 
-- [ ] Add Redis caching for frequently accessed products
-- [ ] Implement Elasticsearch for advanced product search
-- [ ] Add unit and integration tests (JUnit, Mockito)
-- [ ] Docker containerization
-- [ ] CI/CD pipeline with GitHub Actions
-- [ ] Shopping cart functionality
-- [ ] Order management system
-- [ ] Payment gateway integration
 
 ## 👨‍💻 Author
 
@@ -279,7 +266,7 @@ This project is open source and available under the [MIT License](LICENSE).
 - React Documentation
 - Material-UI Components
 - AWS S3 SDK
-- NeetCode for DSA learning
+  
 
 ---
 
