@@ -5,7 +5,7 @@ A full-stack product management system with role-based access control, JWT authe
 ## 🎯 Overview
 
 This application provides separate interfaces for Administrators and Customers to manage and browse products. 
-Admins can perform CRUD operations on products and categories, while customers can browse the product catalog with  pagination.
+Admins can perform CRUD operations on products and categories, while customers can browse the product catalog with pagination.
 
 ## ✨ Key Features
 
@@ -18,13 +18,12 @@ Admins can perform CRUD operations on products and categories, while customers c
 
 ### 👨‍💼 Admin Features
 - Product Management: Create, Read, Update, Delete products
-- Category Management: Organize products into categories
+- Category Management: Create, Read , Update and Delete Categories and also Assign or change Categories of Products
 - Image Upload: Upload product images to AWS S3
 - Server-side pagination with configurable page size and sorting
 
 ### 👤 User Features
 - Browse product catalog with responsive design
-- Filter products by category
 - Paginated product listing
 - View product details with images
 
@@ -47,7 +46,7 @@ Admins can perform CRUD operations on products and categories, while customers c
 - **Cloud Storage:** AWS S3
 
 ### Frontend
-- **Framework:** React 18 with TypeScript
+- **Framework:** React  with TypeScript
 - **UI Library:** Material-UI (MUI)
 - **HTTP Client:** Axios with interceptors
 - **Routing:** React Router v6
@@ -55,16 +54,36 @@ Admins can perform CRUD operations on products and categories, while customers c
 
 ## 📸 Screenshots
 
-### Admin Dashboard
-![Admin Dashboard](screenshots/admin-dashboard.png)
-*Admin can manage products with DataGrid interface*
+### Admin 
 
-### Product Catalog (User View)
-![Product Catalog](screenshots/user-catalog.png)
+#### Admin Dashboard
+<img width="1917" height="606" alt="image" src="https://github.com/user-attachments/assets/d6e65615-2bcb-4534-bc97-2db9e7845087" />
+
+*Admin can view the number of categories and products in this dashboard*
+
+#### Admin Product Manager
+<img width="1913" height="707" alt="image" src="https://github.com/user-attachments/assets/abd6d9c2-776c-43a9-9654-14ba57553fde" />
+
+*Admin can Perform CRUD Operations on Products in this page*
+
+#### Admin Category Manager
+<img width="1910" height="682" alt="image" src="https://github.com/user-attachments/assets/33a0324d-3a5d-401f-86fc-121e7873e730" />
+
+*Admin can perform CRUD Operations on Categories*
+### User
+
+#### User Dashboard
+<img width="1918" height="716" alt="image" src="https://github.com/user-attachments/assets/d2d40b84-0803-4297-929b-a33baf29e319" />
+*User can view the number of categories and products in this dashboard and he can go to the view products page*
+
+#### User Products Page
+<img width="1633" height="801" alt="image" src="https://github.com/user-attachments/assets/f3d2f24a-1d68-4454-849f-67a2bb70fc59" />
+
 *Responsive product cards with pagination*
 
 ### Login Page
-![Login](screenshots/login.png)
+<img width="1118" height="787" alt="image" src="https://github.com/user-attachments/assets/3865a7ce-423c-46cc-8c09-f4c67fbc8e38" />
+
 *JWT-based authentication*
 
 ## 🚀 Getting Started
