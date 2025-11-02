@@ -14,7 +14,8 @@ const UserProductManager = () => {
 
   // call API with page number whenever page changes
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
+    console.log("value:",value)
+    setPage(value-1);
     
   };
 
@@ -59,7 +60,7 @@ const UserProductManager = () => {
           size="large"
           color="primary"
           count={rowCount} // total pages, can calculate from API
-          page={page}
+          page={page+1}
           onChange={handlePageChange}
         />
       </Box>

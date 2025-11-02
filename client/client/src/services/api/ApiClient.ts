@@ -1,6 +1,6 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig, AxiosError } from "axios";
 
-const API_BASE_URL = "http://localhost:9007";
+const API_BASE_URL = `${import.meta.env.VITE_BASE_API_URL}`;
 
 interface LoginResponse {
   username: string;
@@ -15,7 +15,7 @@ class ApiService {
   constructor() {
     this.api = axios.create({
       baseURL: API_BASE_URL,
-      headers: { "Content-Type": "application/json" },
+     
       withCredentials: true,
     });
 

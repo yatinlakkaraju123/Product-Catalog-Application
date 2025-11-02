@@ -152,6 +152,7 @@ export default function ProductManager() {
         setSelectedFile(null)
       } else {
         //await addCategory(categoryName);
+        console.log("selected file:",selectedFile?.name)
         await addProduct(formData.name,formData.description,formData.price,selectedCategoryId,selectedFile)
         toast.success("Product added successfully");
         setFormData({
