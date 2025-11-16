@@ -237,6 +237,21 @@ DELETE /products/{id}                       - Delete product (Admin only)
 - CSRF protection for state-changing operations
 - Secure file upload validation
 
+## 🚀 Deployment Notes
+
+### 🔸 Backend (Spring Boot)
+- Dockerized the application and pushed the image to **Docker Hub**
+- Deployed on **Render Web Service** using the Docker image
+- Environment variables managed via Render Dashboard
+- Exposes a public **HTTPS API endpoint** provided by Render
+
+### 🔸 Frontend (React + Vite)
+- Hosted on **Vercel**
+- Uses environment variables for backend API configuration
+- Automatically built & deployed from the GitHub repository
+- Served over **HTTPS** with Vercel’s global CDN
+
+
 ## 🎓 Learning Outcomes
 
 This project demonstrates:
