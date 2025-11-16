@@ -73,7 +73,13 @@ class ApiService {
       { headers: { "Content-Type": "application/json" } }
     );
   }
-
+public signUp(username: string, password: string,phoneNumber:number,email:string) {
+    return this.api.post<LoginResponse>(
+      "/auth/v1/signup",
+      { username, password,phoneNumber,email },
+      { headers: { "Content-Type": "application/json" } }
+    );
+  }
   public logout() {
     const refreshToken = localStorage.getItem("refreshToken");
     if (refreshToken) {

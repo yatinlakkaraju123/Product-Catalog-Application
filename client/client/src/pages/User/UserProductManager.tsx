@@ -5,11 +5,13 @@ import { getAllProducts } from "../../services/api/ProductApiService";
 import type { Product } from "../Admin/ProductManager";
 import type { AxiosError } from "axios";
 import { toast } from "react-toastify";
+import Loader from "../../utils/Loader";
 
 const UserProductManager = () => {
   const [page, setPage] = useState(0);
     const [products,setProducts] = useState<Product[]>([])
-     const [rowCount, setRowCount] = useState(0); // current page
+     const [rowCount, setRowCount] = useState(0); 
+     const [loading,setLoading] = useState<boolean>(false)// current page
   const pageSize = 6;
 
   // call API with page number whenever page changes
@@ -21,6 +23,7 @@ const UserProductManager = () => {
 
   const fetchProducts = useCallback(async () => {
     try {
+      setLoading(true)
       const res = await getAllProducts(page, pageSize);
       setProducts(res.data.content);
       setRowCount(res.data.totalPages);
@@ -28,12 +31,15 @@ const UserProductManager = () => {
       const err = error as AxiosError<{ title: string }>;
       toast.error(err.response?.data?.title || "Failed to fetch products");
     }
+    finally{
+      setLoading(false)
+    }
   }, [page, pageSize]);
 
   useEffect(() => {
     fetchProducts()
   }, [fetchProducts]);
-
+  if(loading) return <Loader/>
   return (
     <Container sx={{ mt: 4, mb: 6 }}>
       <Typography variant="h5" fontWeight={600} mb={3}>

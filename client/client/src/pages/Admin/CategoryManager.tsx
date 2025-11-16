@@ -16,6 +16,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { AxiosError } from "axios";
 import { getAllCategories, addCategory, updateCategory, deleteCategory } from "../../services/api/CategoryApiService";
+import Loader from "../../utils/Loader";
 
 interface Category {
   id: number;
@@ -31,16 +32,19 @@ export default function CategoryManager() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [categoryName, setCategoryName] = useState("");
-
+  const [loading,setLoading] = useState(false)
   // Fetch categories from API
   const fetchCategories = useCallback(async () => {
     try {
+       setLoading(true)
       const res = await getAllCategories(page, pageSize);
       setCategories(res.data.content);
       setRowCount(res.data.totalElements);
     } catch (error) {
       const err = error as AxiosError<{ title: string }>;
       toast.error(err.response?.data?.title || "Failed to fetch categories");
+    } finally{
+      setLoading(false)
     }
   }, [page, pageSize]);
 
@@ -64,6 +68,7 @@ export default function CategoryManager() {
 
   // Add/Edit submit
   const handleSubmit = async (e: React.FormEvent) => {
+     setLoading(true)
     e.preventDefault();
     try {
       if (editingCategory) {
@@ -78,18 +83,23 @@ export default function CategoryManager() {
     } catch (error) {
       const err = error as AxiosError<{ title: string }>;
       toast.error(err.response?.data?.title || "Something went wrong");
+    } finally{
+      setLoading(false)
     }
   };
 
   // Delete category
   const handleDelete = async (id: number) => {
     try {
+       setLoading(true)
       await deleteCategory(id);
       toast.success("Category deleted successfully");
       fetchCategories();
     } catch (error) {
       const err = error as AxiosError<{ title: string }>;
       toast.error(err.response?.data?.title || "Failed to delete category");
+    } finally{
+      setLoading(false)
     }
   };
 
@@ -118,7 +128,7 @@ export default function CategoryManager() {
       ),
     },
   ];
-
+if(loading) return <Loader/>
   return (
     <Box m={5}>
       <Box mb={2} display="flex" justifyContent="flex-end">

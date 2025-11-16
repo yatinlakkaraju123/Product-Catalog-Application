@@ -1,7 +1,7 @@
 import type { GridColDef } from "@mui/x-data-grid";
 
 export type loginPage = Record<"username" | "password", string>;
-export type signUpPage = Record<"username" | "password"|"phoneNumber"|"email", string>;
+export type signUpPage = Record<"username" | "password"|"phoneNumber"|"email"|"repeatPassword", string>;
 export type addCategoryPage = Record<"name",string>;
 export interface FormComponentProps<T extends Record<string, string>> {
   handleSubmit: (e: React.FormEvent) => void;

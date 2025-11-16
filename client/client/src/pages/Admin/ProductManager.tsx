@@ -24,6 +24,7 @@ import { getAllCategories } from "../../services/api/CategoryApiService";
 import { addProduct, deleteProduct, getAllProducts, getProductById, updateProduct } from "../../services/api/ProductApiService";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import Loader from "../../utils/Loader";
 interface Category {
   id: number;
   name: string;
@@ -51,6 +52,7 @@ export default function ProductManager() {
   const [categoryName, setCategoryName] = useState("");
   const fileInputRef = useRef(null);
   const [selectedFile,setSelectedFile] = useState<File|null>(null)
+  const [loading,setLoading] = useState(false)
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files[0] ;
     if (selectedFile) {
@@ -66,6 +68,7 @@ export default function ProductManager() {
   // Fetch categories from API
   const fetchCategories = async () => {
     try {
+       setLoading(true)
       console.log("current time in fetch categories:",new Date())
       const res = await getAllCategories(0, 1000);
       setCategories(res.data.content);
@@ -73,10 +76,13 @@ export default function ProductManager() {
     } catch (error) {
       const err = error as AxiosError<{ title: string }>;
       toast.error(err.response?.data?.title || "Failed to fetch categories");
+    } finally{
+      setLoading(false)
     }
   };
   const fetchProducts = useCallback(async () => {
     try {
+      setLoading(true)
       const res = await getAllProducts(page, pageSize);
       setProducts(res.data.content);
       setRowCount(res.data.totalElements);
@@ -84,6 +90,9 @@ export default function ProductManager() {
       const err = error as AxiosError<{ title: string }>;
       toast.error(err.response?.data?.title || "Failed to fetch products");
       console.log("error in fetching products:",err)
+    }
+    finally{
+      setLoading(false)
     }
   }, [page, pageSize]);
 
@@ -135,6 +144,7 @@ export default function ProductManager() {
   };
   // Add/Edit submit
   const handleSubmit = async (e: React.FormEvent) => {
+     setLoading(true)
     e.preventDefault();
     try {
       if (editingProduct) {
@@ -171,11 +181,15 @@ export default function ProductManager() {
       console.log("Error:",error)
       toast.error(err.response?.data?.title || "Something went wrong");
     }
+     finally{
+      setLoading(false)
+    }
   };
 
   // Delete category
   const handleView = async(id:number) =>{
     try {
+       setLoading(true)
       const response = await getProductById(id)
       setFormData(response.data)
       setViewModalOpen(true)
@@ -183,16 +197,21 @@ export default function ProductManager() {
       const err = error as AxiosError<{title:string}>
       toast.error(err.response?.data?.title || "Failed to retrieve product")
       
+    } finally{
+      setLoading(false)
     }
   }
   const handleDelete = async (id: number) => {
     try {
+       setLoading(true)
       await deleteProduct(id);
       toast.success("Product deleted successfully");
       fetchProducts();
     } catch (error) {
       const err = error as AxiosError<{ title: string }>;
       toast.error(err.response?.data?.title || "Failed to delete product");
+    } finally{
+      setLoading(false)
     }
   };
 
@@ -229,7 +248,7 @@ export default function ProductManager() {
       ),
     },
   ];
-
+ if(loading) return <Loader/>
   return (
     <Box m={5}>
       <Box mb={2} display="flex" justifyContent="flex-end">

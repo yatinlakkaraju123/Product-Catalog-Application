@@ -16,6 +16,7 @@ interface CustomJwtPayload {
 interface AuthContextType {
   user: User | null;
   login: (credentials: { username: string; password: string }) => Promise<{ success: boolean; message?: string }>;
+  signUp: (credentials: { username: string; password: string,phoneNumber:number,email:string }) => Promise<{ success: boolean; message?: string }>;
   logout: () => void;
   loading: boolean;
 }
@@ -49,6 +50,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (credentials: { username: string; password: string }) => {
     try {
+      setLoading(true)
       const response = await ApiService.login(credentials.username, credentials.password);
       console.log("response data:",response.data)
       const { accessToken, token } = response.data;
@@ -70,18 +72,64 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUser({ username:credentials.username, token: accessToken, role:role });
       return { success: true };
     } catch (error: any) {
+      
       return { success: false, message: error.response?.data?.message || "Login failed" };
+    }
+    finally{
+setLoading(false)
+    }
+    
+  };
+  const signUp = async (credentials: { username: string; password: string,phoneNumber:number,email:string }) => {
+    try {
+      setLoading(true)
+      const response = await ApiService.signUp(credentials.username, credentials.password,credentials.phoneNumber
+        ,credentials.email
+      );
+      console.log("response data:",response.data)
+      const { accessToken, token } = response.data;
+      const decodedToken:CustomJwtPayload = jwtDecode(accessToken);
+      const rolesArray = decodedToken.roles;
+      let role;
+      if(rolesArray.includes('ROLE_ADMIN')){
+          role = "admin"
+      }
+      else{
+        role = "user"
+      }
+      console.log("Decoded token:",decodedToken)
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", token);
+      localStorage.setItem("role", role);
+      localStorage.setItem("username", credentials.username);
+
+      setUser({ username:credentials.username, token: accessToken, role:role });
+      return { success: true };
+     
+    } catch (error: any) {
+      return { success: false, message: error.response?.data?.message || "Login failed" };
+     
+    }
+    finally{
+       setLoading(false)
     }
   };
 
-  const logout = () => {
-    ApiService.logout();
+  const logout = async() => {
+    try{
+   setLoading(true)
+   await ApiService.logout();
     setUser(null);
     localStorage.removeItem("role");
     localStorage.removeItem("username");
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+
+    }finally{
+    setLoading(false)
+    }
+ 
   };
 
-  return <AuthContext.Provider value={{ user, login, logout, loading }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, login, logout, loading ,signUp}}>{children}</AuthContext.Provider>;
 };
